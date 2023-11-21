@@ -1,14 +1,7 @@
 package routes
 
-import "go.uber.org/fx"
-
-// Module exports depedency to container
-var Module = fx.Options(
-	fx.Provide(NewCustomerRoutes),
-	fx.Provide(NewServiceRoutes),
-	fx.Provide(NewBillRoutes),
-	fx.Provide(NewRoutes),
-)
+type route struct {
+}
 
 // Routes contains multiple routes
 type Routes []Route

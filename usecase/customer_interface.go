@@ -4,22 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/domains"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
-	repository "git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/repository"
 )
 
-type CustomerUsecase struct {
-	repo repository.Queries
-}
-
-func NewCustomerUsecase(repo repository.Queries) domains.CustomerUsecase {
-	return CustomerUsecase{
-		repo: repo,
-	}
-}
-
-func (c CustomerUsecase) FindById(ctx context.Context, id string) (entities.TblCustomer, error) {
+func (c *Usecase) FindById(ctx context.Context, id string) (entities.TblCustomer, error) {
 	customer, err := c.repo.GetCustomer(ctx, id)
 	if err != nil {
 		return entities.TblCustomer{}, fmt.Errorf("failed to find customer by id! :%v", err)
@@ -28,7 +16,7 @@ func (c CustomerUsecase) FindById(ctx context.Context, id string) (entities.TblC
 	return customer, nil
 }
 
-func (c CustomerUsecase) RegisterCustomer(ctx context.Context, arg entities.TblCustomer) (entities.TblCustomer, error) {
+func (c *Usecase) RegisterCustomer(ctx context.Context, arg entities.TblCustomer) (entities.TblCustomer, error) {
 	customer, err := c.repo.CreateCustomers(ctx, arg)
 	if err != nil {
 		return entities.TblCustomer{}, fmt.Errorf("register failed! :%v", err)
@@ -37,7 +25,7 @@ func (c CustomerUsecase) RegisterCustomer(ctx context.Context, arg entities.TblC
 	return customer, nil
 }
 
-func (c CustomerUsecase) EditCustomer(ctx context.Context, arg entities.TblCustomer) error {
+func (c *Usecase) EditCustomer(ctx context.Context, arg entities.TblCustomer) error {
 	err := c.repo.UpdateCustomer(ctx, arg)
 	if err != nil {
 		return fmt.Errorf("update failed! :%v", err)
@@ -46,7 +34,7 @@ func (c CustomerUsecase) EditCustomer(ctx context.Context, arg entities.TblCusto
 
 }
 
-func (c CustomerUsecase) FetchingAllCustomers(ctx context.Context) ([]entities.TblCustomer, error) {
+func (c *Usecase) FetchingAllCustomers(ctx context.Context) ([]entities.TblCustomer, error) {
 	customers, err := c.repo.ListCustomers(ctx)
 	if err != nil {
 		return []entities.TblCustomer{}, fmt.Errorf("failed to retrieve Customers data!. error: %v", err)
@@ -56,7 +44,7 @@ func (c CustomerUsecase) FetchingAllCustomers(ctx context.Context) ([]entities.T
 
 }
 
-func (c CustomerUsecase) DeleteCustomer(ctx context.Context, id string) error {
+func (c *Usecase) DeleteCustomer(ctx context.Context, id string) error {
 	err := c.repo.DeleteCustomer(ctx, id)
 	if err != nil {
 		return fmt.Errorf("the customer deletion process failed!. :%v", err)
