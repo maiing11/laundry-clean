@@ -13,7 +13,7 @@ type CustomerRoutes struct {
 
 // set up  routes
 func (s CustomerRoutes) Setup() {
-	api := s.handler.Gin.Group("api/v1")
+	api := s.handler.Gin.Group("/api")
 
 	// customers
 	{

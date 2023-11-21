@@ -8,11 +8,6 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-type BillRepository interface {
-	// produce bill
-	CreateBill(ctx context.Context, db *pgx.Conn, payload entities.TblBill) (entities.TblBill, error)
-}
-
 const createBill = `INSERT INTO tbl_bills (
 	date_in, date_finished, customer_id, services, bill_amount
 	VALUES ($1, $2, $3, $4, $5)
@@ -53,7 +48,7 @@ func (q *Queries) CreateBill(ctx context.Context, db *pgx.Conn, payload entities
 	err = row.Scan(
 		&bill.ID,
 		&bill.DateIn,
-		&bill.DateFinished,
+		time.Now(),
 		&bill.Services,
 		&bill.BillAmount,
 	)

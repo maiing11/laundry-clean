@@ -12,7 +12,7 @@ type BillRoutes struct {
 }
 
 func (s BillRoutes) Setup() {
-	api := s.handler.Gin.Group("api/v1")
+	api := s.handler.Gin.Group("/api")
 
 	// bills
 	{

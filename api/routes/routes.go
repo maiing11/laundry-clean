@@ -1,7 +1,12 @@
 package routes
 
-type route struct {
-}
+import "go.uber.org/fx"
+
+var Module = fx.Options(
+	fx.Provide(NewCustomerRoutes),
+	fx.Provide(NewServiceRoutes),
+	fx.Provide(NewBillRoutes),
+)
 
 // Routes contains multiple routes
 type Routes []Route
@@ -24,7 +29,7 @@ func NewRoutes(
 	}
 }
 
-// Setup all route
+// Setup all the route
 func (r Routes) Setup() {
 	for _, route := range r {
 		route.Setup()

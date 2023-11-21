@@ -3,17 +3,17 @@ package controllers
 import (
 	"net/http"
 
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/domains"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/dto"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/usecase/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type CustomerController struct {
-	uc domains.CustomerUsecase
+	uc interfaces.CustomerUsecase
 }
 
-func NewCustomerController(uc domains.CustomerUsecase) CustomerController {
+func NewCustomerController(uc interfaces.CustomerUsecase) CustomerController {
 	return CustomerController{uc: uc}
 }
 

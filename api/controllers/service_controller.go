@@ -4,17 +4,17 @@ import (
 	"net/http"
 	"strconv"
 
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/domains"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/dto"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/usecase/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type ServiceController struct {
-	uc domains.ServiceDetailsUC
+	uc interfaces.ServiceDetailsUC
 }
 
-func NewServiceController(uc domains.ServiceDetailsUC) ServiceController {
+func NewServiceController(uc interfaces.ServiceDetailsUC) ServiceController {
 	return ServiceController{uc: uc}
 }
 

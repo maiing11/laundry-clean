@@ -1,20 +1,14 @@
 package usecase
 
 import (
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/domains"
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/repository"
+	"go.uber.org/fx"
 )
 
-type Domains interface {
-	domains.ServiceDetailsUC
-	domains.CustomerUsecase
-	domains.BillUsecase
-}
+// Module exports usecases present
+var Module = fx.Options(
+	fx.Provide(NewCustomerUC),
+	fx.Provide(NewServiceUC),
+	fx.Provide(NewBillUsecase),
+)
 
-type Usecase struct {
-	repo repository.Queries
-}
 
-func NewUsecase(d Domains, repo repository.Queries) *Usecase {
-	return &Usecase{repo: repo}
-}

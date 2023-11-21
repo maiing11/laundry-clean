@@ -3,16 +3,16 @@ package controllers
 import (
 	"net/http"
 
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/domains"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/dto"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/usecase/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type BillController struct {
-	uc domains.BillUsecase
+	uc interfaces.BillUsecase
 }
 
-func NewBillController(uc domains.BillUsecase) BillController {
+func NewBillController(uc interfaces.BillUsecase) BillController {
 	return BillController{uc: uc}
 }
 

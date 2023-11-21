@@ -13,7 +13,7 @@ type ServiceRoutes struct {
 
 // Setup service routes
 func (s ServiceRoutes) Setup() {
-	api := s.handler.Gin.Group("api/v1")
+	api := s.handler.Gin.Group("/api")
 
 	// services
 	{

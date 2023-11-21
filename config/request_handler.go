@@ -8,7 +8,7 @@ type RequestHandler struct {
 }
 
 // NewRequestHandler creates a new request handler
-func NewRequestHandler() RequestHandler {
-	engine := gin.Default()
-	return RequestHandler{Gin: engine}
+func NewRequestHandler() *RequestHandler {
+	engine := RequestHandler{Gin: gin.Default()}
+	return &engine
 }
