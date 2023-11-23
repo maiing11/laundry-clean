@@ -13,15 +13,15 @@ type ServiceRoutes struct {
 
 // Setup service routes
 func (s ServiceRoutes) Setup() {
-	api := s.handler.Gin.Group("/api")
+	api := s.handler.Gin.Group("/api/v1/services")
 
 	// services
 	{
-		api.GET("/services/", s.serviceController.FetchServices)
-		api.GET("/services/:id", s.serviceController.FindServiceById)
-		api.POST("services", s.serviceController.RegisterService)
-		api.PUT("/services", s.serviceController.EditService)
-		api.DELETE("/services", s.serviceController.DeleteService)
+		api.GET("/", s.serviceController.FetchServices)
+		api.GET("/:id", s.serviceController.FindServiceById)
+		api.POST("/", s.serviceController.RegisterService)
+		api.PUT("/", s.serviceController.EditService)
+		api.DELETE("/:id", s.serviceController.DeleteService)
 	}
 }
 

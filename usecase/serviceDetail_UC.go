@@ -10,10 +10,10 @@ import (
 )
 
 type ServiceUsecase struct {
-	repo repository.Queries
+	repo *repository.Queries
 }
 
-func NewServiceUC(repo repository.Queries) interfaces.ServiceDetailsUC {
+func NewServiceUC(repo *repository.Queries) interfaces.ServiceDetailsUC {
 	return &ServiceUsecase{repo: repo}
 }
 

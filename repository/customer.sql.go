@@ -16,7 +16,7 @@ RETURNING id, name, address, phone_number
 `
 
 func (q *Queries) CreateCustomers(ctx context.Context, arg entities.TblCustomer) (entities.TblCustomer, error) {
-	row := q.db.QueryRow(ctx, createCustomers, arg.Name, arg.Address, arg.PhoneNumber)
+	row := q.db.QueryRowContext(ctx, createCustomers, arg.Name, arg.Address, arg.PhoneNumber)
 	var i entities.TblCustomer
 	err := row.Scan(
 		&i.ID,
@@ -33,7 +33,7 @@ WHERE id = $1
 `
 
 func (q *Queries) DeleteCustomer(ctx context.Context, id string) error {
-	_, err := q.db.Exec(ctx, deleteCustomer, id)
+	_, err := q.db.ExecContext(ctx, deleteCustomer, id)
 	return err
 }
 
@@ -43,7 +43,7 @@ WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetCustomer(ctx context.Context, id string) (entities.TblCustomer, error) {
-	row := q.db.QueryRow(ctx, getCustomer, id)
+	row := q.db.QueryRowContext(ctx, getCustomer, id)
 	var i entities.TblCustomer
 	err := row.Scan(
 		&i.ID,
@@ -60,7 +60,7 @@ ORDER BY name
 `
 
 func (q *Queries) ListCustomers(ctx context.Context) ([]entities.TblCustomer, error) {
-	rows, err := q.db.Query(ctx, listCustomers)
+	rows, err := q.db.QueryContext(ctx, listCustomers)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ WHERE id = $1
 `
 
 func (q *Queries) UpdateCustomer(ctx context.Context, arg entities.TblCustomer) error {
-	_, err := q.db.Exec(ctx, updateCustomer,
+	_, err := q.db.ExecContext(ctx, updateCustomer,
 		arg.ID,
 		arg.Name,
 		arg.Address,

@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"log"
+
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/api/controllers"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/config"
 )
@@ -13,15 +15,15 @@ type CustomerRoutes struct {
 
 // set up  routes
 func (s CustomerRoutes) Setup() {
-	api := s.handler.Gin.Group("/api")
-
+	api := s.handler.Gin.Group("/api/v1/customers")
+	log.Println("setting up routes")
 	// customers
 	{
-		api.GET("/customers", s.custController.FetchAllCustomers)
-		api.GET("/customers/:id", s.custController.FindCustomerById)
-		api.POST("/customers", s.custController.RegisterCustomer)
-		api.PUT("/customers", s.custController.EditCustomer)
-		api.DELETE("/customers/id:", s.custController.DeleteCustomer)
+		api.GET("/", s.custController.FetchAllCustomers)
+		api.GET("/:id", s.custController.FindCustomerById)
+		api.POST("/", s.custController.RegisterCustomer)
+		api.PUT("/", s.custController.EditCustomer)
+		api.DELETE("/:id", s.custController.DeleteCustomer)
 	}
 
 }

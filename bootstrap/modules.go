@@ -10,9 +10,9 @@ import (
 )
 
 var CommonModules = fx.Options(
-	usecase.Module,
-	config.Module,
-	repository.Module,
-	routes.Module,
 	controllers.Module,
+	routes.Module,
+	config.Module,
+	usecase.Module,
+	repository.Module,
 )

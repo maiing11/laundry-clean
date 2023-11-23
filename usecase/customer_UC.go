@@ -3,6 +3,7 @@ package usecase
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/repository"
@@ -10,10 +11,10 @@ import (
 )
 
 type CustomerUsecase struct {
-	repo repository.Queries
+	repo *repository.Queries
 }
 
-func NewCustomerUC(repo repository.Queries) interfaces.CustomerUsecase {
+func NewCustomerUC(repo *repository.Queries) interfaces.CustomerUsecase {
 	return &CustomerUsecase{repo: repo}
 }
 
@@ -29,6 +30,7 @@ func (c *CustomerUsecase) FindById(ctx context.Context, id string) (entities.Tbl
 func (c *CustomerUsecase) RegisterCustomer(ctx context.Context, arg entities.TblCustomer) (entities.TblCustomer, error) {
 	customer, err := c.repo.CreateCustomers(ctx, arg)
 	if err != nil {
+		log.Fatalf("error while register customer :%v", err)
 		return entities.TblCustomer{}, fmt.Errorf("register failed! :%v", err)
 	}
 

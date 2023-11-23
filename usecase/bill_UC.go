@@ -2,23 +2,23 @@ package usecase
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/dto"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/repository"
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/usecase/interfaces"
-	"github.com/jackc/pgx/v5"
 )
 
 type BillUsecase struct {
-	repo       repository.Queries
+	repo       *repository.Queries
 	customerUC interfaces.CustomerUsecase
 	serviceUC  interfaces.ServiceDetailsUC
 }
 
 func NewBillUsecase(
-	repo repository.Queries,
+	repo *repository.Queries,
 	customerUC interfaces.CustomerUsecase,
 	serviceUc interfaces.ServiceDetailsUC,
 ) interfaces.BillUsecase {
@@ -31,7 +31,7 @@ func NewBillUsecase(
 
 func (b *BillUsecase) RegisterNewBill(payload dto.BillRequestDto) (entities.TblBill, error) {
 	var newServices []entities.TblService
-	var db *pgx.Conn
+	var db *sql.DB
 	var ctx context.Context
 	customer, err := b.customerUC.FindById(ctx, payload.CustomerId)
 	if err != nil {

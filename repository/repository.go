@@ -2,19 +2,24 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/config"
 	"go.uber.org/fx"
 )
 
+var Module = fx.Options(
+	fx.Provide(NewRepository),
+)
+
 type Database interface {
-	Exec(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
-	Query(context.Context, string, ...interface{}) (pgx.Rows, error)
-	QueryRow(context.Context, string, ...interface{}) pgx.Row
+	ExecContext(context.Context, string, ...interface{}) (sql.Result, error)
+	PrepareContext(context.Context, string) (*sql.Stmt, error)
+	QueryContext(context.Context, string, ...interface{}) (*sql.Rows, error)
+	QueryRowContext(context.Context, string, ...interface{}) *sql.Row
 }
 
-func NewRepository(db Database) *Queries {
+func NewRepository(db config.InfraConfig) *Queries {
 	return &Queries{db: db}
 }
 
@@ -22,12 +27,8 @@ type Queries struct {
 	db Database
 }
 
-func (q *Queries) WithTx(tx pgx.Tx) *Queries {
+func (q *Queries) WithTx(tx *sql.Tx) *Queries {
 	return &Queries{
 		db: tx,
 	}
 }
-
-var Module = fx.Options(
-	fx.Provide(NewRepository),
-)

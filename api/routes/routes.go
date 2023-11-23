@@ -6,6 +6,7 @@ var Module = fx.Options(
 	fx.Provide(NewCustomerRoutes),
 	fx.Provide(NewServiceRoutes),
 	fx.Provide(NewBillRoutes),
+	fx.Provide(NewRoutes),
 )
 
 // Routes contains multiple routes

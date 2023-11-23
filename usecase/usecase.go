@@ -10,5 +10,3 @@ var Module = fx.Options(
 	fx.Provide(NewServiceUC),
 	fx.Provide(NewBillUsecase),
 )
-
-

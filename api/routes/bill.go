@@ -12,11 +12,11 @@ type BillRoutes struct {
 }
 
 func (s BillRoutes) Setup() {
-	api := s.handler.Gin.Group("/api")
+	api := s.handler.Gin.Group("/api/v1/bills")
 
 	// bills
 	{
-		api.POST("/bills", s.billController.RegisterNewBill)
+		api.POST("/", s.billController.RegisterNewBill)
 	}
 }
 

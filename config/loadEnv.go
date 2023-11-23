@@ -21,7 +21,7 @@ type FileConfig struct{}
 
 type TokenConfig struct{}
 
-func NewConfig() (*Config, error) {
+func NewConfig() (Config, error) {
 	cfg := Config{}
 	viper.SetConfigFile(".env")
 
@@ -36,5 +36,5 @@ func NewConfig() (*Config, error) {
 	if err != nil {
 		log.Fatal("☠️ Environment can't be loaded: ", err)
 	}
-	return &cfg, nil
+	return cfg, nil
 }

@@ -2,10 +2,10 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 	"time"
 
 	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/entities"
-	"github.com/jackc/pgx/v5"
 )
 
 const createBill = `INSERT INTO tbl_bills (
@@ -19,9 +19,9 @@ VALUES $1, $2, $3
 RETURNING id, service_no, quantity, subtotal
 `
 
-func (q *Queries) CreateBill(ctx context.Context, db *pgx.Conn, payload entities.TblBill) (entities.TblBill, error) {
+func (q *Queries) CreateBill(ctx context.Context, db *sql.DB, payload entities.TblBill) (entities.TblBill, error) {
 	// transactional
-	tx, err := db.Begin(ctx)
+	tx, err := db.Begin()
 	if err != nil {
 		return entities.TblBill{}, err
 	}
@@ -33,7 +33,7 @@ func (q *Queries) CreateBill(ctx context.Context, db *pgx.Conn, payload entities
 	for _, v := range payload.Services {
 		var serviceDetail entities.TblServiceDetail
 		result := int64(v.Quantity) * serviceDetail.UnitPrice
-		row := qtx.db.QueryRow(ctx, createServices, serviceDetail.ServiceNo, v.Quantity, result)
+		row := qtx.db.QueryRowContext(ctx, createServices, serviceDetail.ServiceNo, v.Quantity, result)
 		row.Scan(
 			&v.ID,
 			&v.ServiceNo,
@@ -44,7 +44,7 @@ func (q *Queries) CreateBill(ctx context.Context, db *pgx.Conn, payload entities
 		totalBillAmount += v.Subtotal
 	}
 
-	row := qtx.db.QueryRow(ctx, createBill, payload.DateIn, time.DateTime, payload.Customer.ID, bill.Services, totalBillAmount)
+	row := qtx.db.QueryRowContext(ctx, createBill, payload.DateIn, time.DateTime, payload.Customer.ID, bill.Services, totalBillAmount)
 	err = row.Scan(
 		&bill.ID,
 		&bill.DateIn,

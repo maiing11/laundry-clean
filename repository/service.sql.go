@@ -16,7 +16,7 @@ RETURNING service_no, service_name, units, unit_price
 `
 
 func (q *Queries) CreateServiceDetails(ctx context.Context, arg entities.TblServiceDetail) (entities.TblServiceDetail, error) {
-	row := q.db.QueryRow(ctx, createServiceDetails, arg.ServiceName, arg.Units, arg.UnitPrice)
+	row := q.db.QueryRowContext(ctx, createServiceDetails, arg.ServiceName, arg.Units, arg.UnitPrice)
 	var i entities.TblServiceDetail
 	err := row.Scan(
 		&i.ServiceNo,
@@ -33,7 +33,7 @@ WHERE service_no = $1
 `
 
 func (q *Queries) DeleteServiceDetail(ctx context.Context, serviceNo int) error {
-	_, err := q.db.Exec(ctx, deleteServiceDetail, serviceNo)
+	_, err := q.db.ExecContext(ctx, deleteServiceDetail, serviceNo)
 	return err
 }
 
@@ -43,7 +43,7 @@ WHERE service_no = $1 LIMIT 1
 `
 
 func (q *Queries) GetServiceDetails(ctx context.Context, serviceNo int) (entities.TblServiceDetail, error) {
-	row := q.db.QueryRow(ctx, getServiceDetails, serviceNo)
+	row := q.db.QueryRowContext(ctx, getServiceDetails, serviceNo)
 	var i entities.TblServiceDetail
 	err := row.Scan(
 		&i.ServiceNo,
@@ -60,7 +60,7 @@ ORDER BY service_name
 `
 
 func (q *Queries) ListServiceDetails(ctx context.Context) ([]entities.TblServiceDetail, error) {
-	rows, err := q.db.Query(ctx, listServiceDetails)
+	rows, err := q.db.QueryContext(ctx, listServiceDetails)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ WHERE service_no = $1
 `
 
 func (q *Queries) UpdateServiceDetails(ctx context.Context, arg entities.TblServiceDetail) error {
-	_, err := q.db.Exec(ctx, updateServiceDetails,
+	_, err := q.db.ExecContext(ctx, updateServiceDetails,
 		arg.ServiceNo,
 		arg.ServiceName,
 		arg.Units,
