@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/commands"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/enigma-laundry-clean/commands"
 	"github.com/spf13/cobra"
 )
 

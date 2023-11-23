@@ -3,8 +3,8 @@ package controllers
 import (
 	"net/http"
 
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/model/dto"
-	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/challenge-godb/usecase/interfaces"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/enigma-laundry-clean/model/dto"
+	"git.enigmacamp.com/enigma-20/maher-zaenudin-mukti-umar/enigma-laundry-clean/usecase/interfaces"
 	"github.com/gin-gonic/gin"
 )
 

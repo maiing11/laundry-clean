@@ -23,8 +23,9 @@ type Command interface {
 	//
 	// For example,
 	//  Command{
-	//   Run: func(l lib.Logger) {
-	// 	   l.Info("i am working")
+	//   Run: func(route routes.Routes) {
+	// 	   route.Setup()
+	//	   log.Println("Running server")
 	// 	 },
 	//  }
 	//
